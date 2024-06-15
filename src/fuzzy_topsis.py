@@ -1,23 +1,40 @@
 import numpy as np
 
+# Load the variable from the dataset
 def load_variable():
     matriks = [[4100000, 3, 33528, 3, 21, 6500000],
-              [4100000, 4, 37305, 4, 20, 6500000],
-              [2900000, 3, 44125, 3, 18, 6300000],
-              [4100000, 4, 30887, 5, 21, 6100000],
-              [3300000, 3, 30892, 4, 20, 6000000],
-              [3000000, 3, 31200, 3, 20, 5900000],
-              [2200000, 2, 31688, 3, 18, 5500000],
-              [2100000, 2, 33794, 3, 21, 5000000],
-              [6250000, 5, 30617, 5, 30, 8000000],
-              [4160000, 5, 44338, 5, 25, 7600000],
-              [2500000, 3, 37279, 3, 18, 6600000],
-              [2500000, 3, 36511, 3, 17, 6400000]]
+            [4100000, 4, 37305, 4, 20, 6500000],
+            [2900000, 3, 44125, 3, 18, 6300000],
+            [4100000, 4, 30887, 5, 21, 6100000],
+            [3300000, 3, 30892, 4, 20, 6000000],
+            [3000000, 3, 31200, 3, 20, 5900000],
+            [2200000, 2, 31688, 3, 18, 5500000],
+            [2100000, 2, 33794, 3, 21, 5000000],
+            [6250000, 5, 30617, 5, 30, 8000000],
+            [4160000, 5, 44338, 5, 25, 7600000],
+            [2500000, 3, 37279, 3, 18, 6600000],
+            [2500000, 3, 36511, 3, 17, 6400000]]
     return matriks
 
+def name_alternatives():
+    return ['Dekat UNS dan ISI (Kec. Jebres)',
+            'Dekat rumah sakit Moewardi (Kec. Jebres),',
+            'Dekat Pasar Gede (Kec. Jebres)',
+            'Dekat Stasiun Balapan dan Masjid Sheikh (Kec. Banjarsari, Kec. Jebres)',
+            'Dekat Stadion Manahan (Kec. Banjarsari)',
+            'Dekat Pasar Legi (Kec. Banjarsari)',
+            'Dekat Pasar Klewer, Keraton Surakarta, Alun-alun (Kec. Pasar Kliwon)',
+            'Dekat Pasar Notoharjo (Kec. Pasar Kliwon)',
+            'Dekat Solo Grand Mall (Kec. Laweyan)',
+            'Dekat Solo Square Mall (Kec. Laweyan)',
+            'Di Jl. Veteran (Kec. Serengan)',
+            'Di Jl. Radjiman (Kec. Laweyan, Kec. Serengan)']
+
+# Define the variable information
 def variable_info():
     return ['Cost', 'Benefit', 'Benefit', 'Benefit', 'Cost', 'Cost']
 
+# Normalize the matrix
 def get_normalize(matrix):
     # Create a new matrix to store normalized values
     normalized_matrix = np.zeros_like(matrix, dtype=float)
@@ -36,6 +53,7 @@ def get_normalize(matrix):
 
     return normalized_matrix
 
+# Get the fuzzy scale
 def get_fuzzy_scale(value):
     if value == 0:
         return [0, 0, 0.25]
@@ -48,27 +66,34 @@ def get_fuzzy_scale(value):
     else:
         return [0.75, 1.0, 1.0]
 
+# Build the decision matrix criteria
 def build_dm_criteria(values, total_dm):
+    # Create a new matrix to store the fuzzy scale values
     dm_criteria = np.zeros((total_dm, 6, 3))
 
+    # Get the fuzzy scale for each value
     for i in range(total_dm):
         for j in range(6):
             dm_criteria[i][j] = get_fuzzy_scale(values[i][j])
 
     return dm_criteria
 
+# Build the aggregate decision matrix criteria
 def build_aggregate_dm_criteria(dm_criteria):
     aggregated_criteria = np.zeros((6, 3))
 
+    # Get the average of the fuzzy scale values
     for i in range(6):
         for j in range(3):
             aggregated_criteria[i][j] = np.average(dm_criteria[:, i, j])
     
     return aggregated_criteria
 
+# Weighted normalized matrix
 def weighted_normalized_matrix(normalized_matrix, aggregated_criteria):
     weighted_normalized_matrix = np.zeros((12, 6, 3))
 
+    # Multiply the normalized matrix with the aggregated criteria
     for i in range(12):
         for j in range(6):
             for k in range(3):
@@ -76,10 +101,12 @@ def weighted_normalized_matrix(normalized_matrix, aggregated_criteria):
 
     return weighted_normalized_matrix
 
+# Get the FPIS and FNIS
 def get_fpis_fnis(weighted_normalized_matrix, matrix_info):
     fpis = np.zeros((6, 3))
     fnis = np.zeros((6, 3))
 
+    # Get the FPIS and FNIS values
     for i in range(6):
         for j in range(3):
             if matrix_info[i] == 'Cost':
@@ -91,10 +118,12 @@ def get_fpis_fnis(weighted_normalized_matrix, matrix_info):
 
     return fpis, fnis
 
+# Get the distance from FPIS and FNIS
 def get_distance_from_fpis_fnis(weighted_normalized_matrix, fpis, fnis):
     distance_fpis = np.zeros((12, 6))
     distance_fnis = np.zeros((12, 6))
 
+    # Calculate the distance from FPIS and FNIS
     for i in range(12):
         for j in range(6):
             distance_fpis[i][j] = sum([(weighted_normalized_matrix[i][j][k] - fpis[j][k]) ** 2 for k in range(3)]) ** 0.5
@@ -102,14 +131,17 @@ def get_distance_from_fpis_fnis(weighted_normalized_matrix, fpis, fnis):
 
     return distance_fpis, distance_fnis
 
+# Get the closest distance
 def get_closest_distance(distance_fpis, distance_fnis):
     closest_distance = np.zeros(12)
 
+    # Calculate the closest distance
     for i in range(12):
         closest_distance[i] = np.mean([distance_fnis[i][j] / (distance_fpis[i][j] + distance_fnis[i][j]) for j in range(6)])
 
     return closest_distance
 
+# Check if the script is run as the main program
 if __name__ == "__main__":
     matrix = load_variable()
     matrix_info = variable_info()
@@ -142,24 +174,8 @@ if __name__ == "__main__":
     closest_distance = get_closest_distance(distance_fpis, distance_fnis)
     print('matriks closest distance: ', closest_distance)
 
-    name_alternatives = ['Dekat UNS dan ISI (Kec. Jebres)',
-                          'Dekat rumah sakit Moewardi (Kec. Jebres),',
-                          'Dekat Pasar Gede (Kec. Jebres)',
-                          'Dekat Stasiun Balapan dan Masjid Sheikh (Kec. Banjarsari, Kec. Jebres)',
-                          'Dekat Stadion Manahan (Kec. Banjarsari)',
-                          'Dekat Pasar Legi (Kec. Banjarsari)',
-                          'Dekat Pasar Klewer, Keraton Surakarta, Alun-alun (Kec. Pasar Kliwon)',
-                          'Dekat Pasar Notoharjo (Kec. Pasar Kliwon)',
-                          'Dekat Solo Grand Mall (Kec. Laweyan)',
-                          'Dekat Solo Square Mall (Kec. Laweyan)',
-                          'Di Jl. Veteran (Kec. Serengan)',
-                          'Di Jl. Radjiman (Kec. Laweyan, Kec. Serengan)']
-    
-    # show the alternatives name and its ranking
-    # for i in range(12):
-    #     print(name_alternatives[i], closest_distance[i])
+    name_alternatives = name_alternatives()
 
-    # sort the alternatives based on the ranking (closest_distance value from largest to smallest)
     sorted_alternatives = sorted(range(len(closest_distance)), key=lambda k: closest_distance[k], reverse=True)
     for i in range(12):
         print(name_alternatives[sorted_alternatives[i]], closest_distance[sorted_alternatives[i]])
