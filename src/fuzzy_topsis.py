@@ -30,6 +30,9 @@ def name_alternatives():
             'Di Jl. Veteran (Kec. Serengan)',
             'Di Jl. Radjiman (Kec. Laweyan, Kec. Serengan)']
 
+def name_criteria():
+    return ['Harga Sewa Bangunan', 'Aksesibilitas', 'Keramaian Lokasi', 'Keamanan', 'Jumlah Kompetitor', 'Budget']
+
 # Define the variable information
 def variable_info():
     return ['Cost', 'Benefit', 'Benefit', 'Benefit', 'Cost', 'Cost']
@@ -137,7 +140,14 @@ def get_closest_distance(distance_fpis, distance_fnis):
 
     # Calculate the closest distance
     for i in range(12):
-        closest_distance[i] = np.mean([distance_fnis[i][j] / (distance_fpis[i][j] + distance_fnis[i][j]) for j in range(6)])
+        fnis = 0
+        fpis = 0
+        for j in range(6):
+            fnis += distance_fnis[i][j]
+            fpis += distance_fpis[i][j]
+
+        # print(fnis, fpis)
+        closest_distance[i] = fnis / (fnis + fpis)
 
     return closest_distance
 
@@ -148,31 +158,31 @@ if __name__ == "__main__":
     print('matriks original: ', matrix)
 
     normalized_matrix = get_normalize(matrix)
-    print('matriks normalized: ', normalized_matrix)
+    print('\nmatriks normalized: ', normalized_matrix)
 
     values_dm = [[3,	2,	4,	1,	1,	2],
                 [2,	1,	3,	2,	2,	3],
                 [2,	3,	2,	1,	1,	2]]
     
     dm_criteria = build_dm_criteria(values_dm, 3)
-    print('matriks dm criteria: ', dm_criteria)
+    print('\nmatriks dm criteria: ', dm_criteria)
 
     aggregated_criteria = build_aggregate_dm_criteria(dm_criteria)
-    print('matriks aggregated criteria: ', aggregated_criteria)
+    print('\nmatriks aggregated criteria: ', aggregated_criteria)
 
     weighted_normalized_matriks = weighted_normalized_matrix(normalized_matrix, aggregated_criteria)
-    print('matriks weighted normalized: ', weighted_normalized_matriks)
+    print('\nmatriks weighted normalized: ', weighted_normalized_matriks)
 
     fpis, fnis = get_fpis_fnis(weighted_normalized_matriks, matrix_info)
-    print('matriks fpis: ', fpis)
-    print('matriks fnis: ', fnis)
+    print('\nmatriks fpis: ', fpis)
+    print('\nmatriks fnis: ', fnis)
 
     distance_fpis, distance_fnis = get_distance_from_fpis_fnis(weighted_normalized_matriks, fpis, fnis)
-    print('matriks distance fpis: ', distance_fpis)
-    print('matriks distance fnis: ', distance_fnis)
+    print('\nmatriks distance fpis: ', distance_fpis)
+    print('\nmatriks distance fnis: ', distance_fnis)
 
     closest_distance = get_closest_distance(distance_fpis, distance_fnis)
-    print('matriks closest distance: ', closest_distance)
+    print('\nmatriks closest distance: ', closest_distance)
 
     name_alternatives = name_alternatives()
 
