@@ -42,25 +42,39 @@ def fuzzy_post():
     # Get the normalized matrix
     normalized_matrix = ft.get_normalize(data)
 
+    # build the decision maker criteria
     dm_criteria = ft.build_dm_criteria(dm_criteria_input, num_dm)
 
+    # build the aggregate decision maker criteria
     aggregated_criteria = ft.build_aggregate_dm_criteria(dm_criteria)
 
+    # get the weighted normalized matrix
     weighted_normalized_matriks = ft.weighted_normalized_matrix(normalized_matrix, aggregated_criteria)
 
+    # get the fpis and fnis
     fpis, fnis = ft.get_fpis_fnis(weighted_normalized_matriks, ft.variable_info())
 
+    # get the distance from fpis and fnis
     distance_fpis, distance_fnis = ft.get_distance_from_fpis_fnis(weighted_normalized_matriks, fpis, fnis)
 
-    closest_distance = ft.get_closest_distance(distance_fpis, distance_fnis)
+    # get the closest distance
+    closest_distances = ft.get_closest_distance(distance_fpis, distance_fnis)
 
+    # load the name alternatives
     name_alternatives = ft.name_alternatives()
 
-    sorted_alternatives = sorted(range(len(closest_distance)), key=lambda k: closest_distance[k], reverse=True)
+    # load the name of criteria
+    name_criterias = ft.name_criteria()
 
-    length = len(closest_distance)
+    # sort the alternatives based on the closest distance
+    sorted_alternatives = sorted(range(len(closest_distances)), key=lambda k: closest_distances[k], reverse=True)
 
-    return render_template('result-fuzzy.html', closest_distance=closest_distance, sorted_alternatives=sorted_alternatives, name_alternatives=name_alternatives, length=length)
+    
+    length = len(closest_distances)
+
+    return render_template('result-fuzzy.html', closest_distances=closest_distances, sorted_alternatives=sorted_alternatives, name_alternatives=name_alternatives, 
+                        name_criterias=name_criterias, initial_matrix=data,
+                        normalized_matrix=normalized_matrix)
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -10,6 +10,65 @@
   <div class="container mt-5">
     <h1>Hello, Result!</h1>
 
+    <!-- initial matrix -->
+    <div class="mt-4">
+      <h2>Initial Matrix</h2>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Alternatives</th>
+            {% for i in range(6) %}
+            <th>{{ name_criterias[i] }}</th>
+            {% endfor %}
+          </tr>
+        </thead>
+        <tbody>
+          {% for i in range(12) %}
+          <tr>
+            <td>{{ name_alternatives[i] }}</td>
+            {% for j in range(6) %}
+            <td>{{ initial_matrix[i][j] }}</td>
+            {% endfor %}
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <!-- normalization matrix -->
+    <div class="mt-4">
+      <h2>Normalization Matrix</h2>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Alternatives</th>
+            {% for i in range(6) %}
+            <th>{{ name_criterias[i] }}</th>
+            {% endfor %}
+          </tr>
+        </thead>
+        <tbody>
+          {% for i in range(12) %}
+          <tr>
+            <td>{{ name_alternatives[i] }}</td>
+            {% for j in range(6) %}
+            <td>{{ normalized_matrix[i][j] | round(6) }}</td>
+            {% endfor %}
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <!-- decision maker initial matrix -->
+    <!-- decision maker aggregate matrix -->
+    <!-- weight normalization matrix -->
+    <!-- FPIS matrix -->
+    <!-- FNIS matrix -->
+    <!-- FPIS distance matrix -->
+    <!-- FNIS distance matrix -->
+
+    <!-- ranked alternatives -->
     <div class="mt-4">
       <h2>Ranked Alternatives</h2>
       <table class="table table-bordered">
@@ -21,11 +80,11 @@
           </tr>
         </thead>
         <tbody>
-          {% for i in range(length) %}
+          {% for i in range(12) %}
           <tr>
             <td>{{ i + 1 }}</td>
             <td>{{ name_alternatives[sorted_alternatives[i]] }}</td>
-            <td>{{ closest_distance[sorted_alternatives[i]] }}</td> <!-- Corrected line -->
+            <td>{{ closest_distances[sorted_alternatives[i]] | round(6)}}</td> <!-- Corrected line -->
           </tr>
           {% endfor %}
         </tbody>
