@@ -61,12 +61,156 @@
     </div>
 
     <!-- decision maker initial matrix -->
+    <div class="mt-4">
+      <h2>Decision Maker Intitial Matrix</h2>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Decision Maker</th>
+            {% for i in range(6) %}
+            <th>{{ name_criterias[i] }}</th>
+            {% endfor %}
+          </tr>
+        </thead>
+        <tbody>
+          {% for i in range(num_dm) %}
+          <tr>
+            <td>Decision Maker {{ i + 1 }}</td>
+            {% for j in range(6) %}
+            <td>{{ dm_initial_criteria[i][j] }}</td>
+            {% endfor %}
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
     <!-- decision maker aggregate matrix -->
+    <div class="mt-4">
+      <h2>Decision Maker Aggregate Matrix</h2>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Criteria</th>
+            {% for i in range(6) %}
+            <th>{{ name_criterias[i] }}</th>
+            {% endfor %}
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Value</td>
+            {% for i in range(6) %}
+            <td>{{ aggregated_criteria[i] }}</td>
+            {% endfor %}
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
     <!-- weight normalization matrix -->
+    <div class="mt-4">
+      <h2>Weight Normalization Matrix</h2>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Alternatives</th>
+            {% for i in range(6) %}
+            <th>{{ name_criterias[i] }}</th>
+            {% endfor %}
+          </tr>
+        </thead>
+        <tbody>
+          {% for i in range(12) %}
+          <tr>
+            <td>{{ name_alternatives[i] }}</td>
+            {% for j in range(6) %}
+            <td>{{ weighted_normalized_matriks[i][j] }}</td>
+            {% endfor %}
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
     <!-- FPIS matrix -->
-    <!-- FNIS matrix -->
+    <div class="mt-4">
+      <h2>FPIS and FNIS Matrix</h2>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Criteria</th>
+            {% for i in range(6) %}
+            <th>{{ name_criterias[i] }}</th>
+            {% endfor %}
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>FPIS</td>
+            {% for j in range(6) %}
+            <td>{{ fpis[j] }}</td>
+            {% endfor %}
+          </tr>
+          <tr>
+            <td>FNIS</td>
+            {% for j in range(6) %}
+            <td>{{ fnis[j] }}</td>
+            {% endfor %}
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
     <!-- FPIS distance matrix -->
+    <div class="mt-4">
+      <h2>FPIS Distance Matrix</h2>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Alternatives</th>
+            {% for i in range(6) %}
+            <th>{{ name_criterias[i] }}</th>
+            {% endfor %}
+          </tr>
+        </thead>
+        <tbody>
+          {% for i in range(12) %}
+          <tr>
+            <td>{{ name_alternatives[i] }}</td>
+            {% for j in range(6) %}
+            <td>{{ distance_fpis[i][j] | round(6) }}</td>
+            {% endfor %}
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
     <!-- FNIS distance matrix -->
+    <div class="mt-4">
+      <h2>FNIS Distance Matrix</h2>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Alternatives</th>
+            {% for i in range(6) %}
+            <th>{{ name_criterias[i] }}</th>
+            {% endfor %}
+          </tr>
+        </thead>
+        <tbody>
+          {% for i in range(12) %}
+          <tr>
+            <td>{{ name_alternatives[i] }}</td>
+            {% for j in range(6) %}
+            <td>{{ distance_fnis[i][j] | round(6)}}</td>
+            {% endfor %}
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
 
     <!-- ranked alternatives -->
     <div class="mt-4">

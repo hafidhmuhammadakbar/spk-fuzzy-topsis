@@ -25,7 +25,7 @@ def fuzzy_post():
         if key.startswith('decisionMaker') and key.endswith('Criteria1'):
             num_dm += 1
     
-    print(f"Number of decision makers: {num_dm}")
+    # print(f"Number of decision makers: {num_dm}")
 
     if num_dm <= 0:
         return "Error: Invalid number of decision makers submitted", 400
@@ -69,12 +69,11 @@ def fuzzy_post():
     # sort the alternatives based on the closest distance
     sorted_alternatives = sorted(range(len(closest_distances)), key=lambda k: closest_distances[k], reverse=True)
 
-    
-    length = len(closest_distances)
-
-    return render_template('result-fuzzy.html', closest_distances=closest_distances, sorted_alternatives=sorted_alternatives, name_alternatives=name_alternatives, 
-                        name_criterias=name_criterias, initial_matrix=data,
-                        normalized_matrix=normalized_matrix)
+    return render_template('result-fuzzy.html', closest_distances=closest_distances, sorted_alternatives=sorted_alternatives, 
+                        name_alternatives=name_alternatives, name_criterias=name_criterias, initial_matrix=data,
+                        normalized_matrix=normalized_matrix, num_dm=num_dm, dm_initial_criteria=dm_criteria,
+                        aggregated_criteria=aggregated_criteria, weighted_normalized_matriks=weighted_normalized_matriks,
+                        fpis=fpis, fnis=fnis, distance_fpis=distance_fpis, distance_fnis=distance_fnis)
 
 if __name__ == '__main__':
     app.run(debug=True)
