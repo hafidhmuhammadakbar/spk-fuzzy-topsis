@@ -1,246 +1,280 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Fuzzy TOPSIS Result</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
-  <div class="container mt-5">
-    <h1>Hello, Result!</h1>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Fuzzy TOPSIS Result</title>
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+        />
+    </head>
+    <body class="bg-light">
+        <div class="container mt-5">
+            <h1 class="text-center text-primary mb-5">Result!</h1>
 
-    <!-- initial matrix -->
-    <div class="mt-4">
-      <h2>Initial Matrix</h2>
-      <table class="table table-bordered">
-        <thead>
-          <tr>
-            <th>Alternatives</th>
-            {% for i in range(6) %}
-            <th>{{ name_criterias[i] }}</th>
-            {% endfor %}
-          </tr>
-        </thead>
-        <tbody>
-          {% for i in range(12) %}
-          <tr>
-            <td>{{ name_alternatives[i] }}</td>
-            {% for j in range(6) %}
-            <td>{{ initial_matrix[i][j] }}</td>
-            {% endfor %}
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    </div>
+            <!-- Initial matrix -->
+            <div class="mt-4">
+                <h2>Initial Matrix</h2>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped">
+                        <thead class="table-primary">
+                            <tr>
+                                <th>Alternatives</th>
+                                {% for i in range(6) %}
+                                <th>{{ name_criterias[i] }}</th>
+                                {% endfor %}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for i in range(12) %}
+                            <tr>
+                                <td>{{ name_alternatives[i] }}</td>
+                                {% for j in range(6) %}
+                                <td>{{ initial_matrix[i][j] }}</td>
+                                {% endfor %}
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
 
-    <!-- normalization matrix -->
-    <div class="mt-4">
-      <h2>Normalization Matrix</h2>
-      <table class="table table-bordered">
-        <thead>
-          <tr>
-            <th>Alternatives</th>
-            {% for i in range(6) %}
-            <th>{{ name_criterias[i] }}</th>
-            {% endfor %}
-          </tr>
-        </thead>
-        <tbody>
-          {% for i in range(12) %}
-          <tr>
-            <td>{{ name_alternatives[i] }}</td>
-            {% for j in range(6) %}
-            <td>{{ normalized_matrix[i][j] | round(6) }}</td>
-            {% endfor %}
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    </div>
+            <!-- Normalization matrix -->
+            <div class="mt-4">
+                <h2>Normalization Matrix</h2>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped">
+                        <thead class="table-primary">
+                            <tr>
+                                <th>Alternatives</th>
+                                {% for i in range(6) %}
+                                <th>{{ name_criterias[i] }}</th>
+                                {% endfor %}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for i in range(12) %}
+                            <tr>
+                                <td>{{ name_alternatives[i] }}</td>
+                                {% for j in range(6) %}
+                                <td>
+                                    {{ normalized_matrix[i][j] | round(6) }}
+                                </td>
+                                {% endfor %}
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
 
-    <!-- decision maker initial matrix -->
-    <div class="mt-4">
-      <h2>Decision Maker Intitial Matrix</h2>
-      <table class="table table-bordered">
-        <thead>
-          <tr>
-            <th>Decision Maker</th>
-            {% for i in range(6) %}
-            <th>{{ name_criterias[i] }}</th>
-            {% endfor %}
-          </tr>
-        </thead>
-        <tbody>
-          {% for i in range(num_dm) %}
-          <tr>
-            <td>Decision Maker {{ i + 1 }}</td>
-            {% for j in range(6) %}
-            <td>{{ dm_initial_criteria[i][j] }}</td>
-            {% endfor %}
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    </div>
+            <!-- Decision maker initial matrix -->
+            <div class="mt-4">
+                <h2>Decision Maker Initial Matrix</h2>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped">
+                        <thead class="table-primary">
+                            <tr>
+                                <th>Decision Maker</th>
+                                {% for i in range(6) %}
+                                <th>{{ name_criterias[i] }}</th>
+                                {% endfor %}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for i in range(num_dm) %}
+                            <tr>
+                                <td>Decision Maker {{ i + 1 }}</td>
+                                {% for j in range(6) %}
+                                <td>{{ dm_initial_criteria[i][j] }}</td>
+                                {% endfor %}
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
 
-    <!-- decision maker aggregate matrix -->
-    <div class="mt-4">
-      <h2>Decision Maker Aggregate Matrix</h2>
-      <table class="table table-bordered">
-        <thead>
-          <tr>
-            <th>Criteria</th>
-            {% for i in range(6) %}
-            <th>{{ name_criterias[i] }}</th>
-            {% endfor %}
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Value</td>
-            {% for i in range(6) %}
-            <td>{{ aggregated_criteria[i] }}</td>
-            {% endfor %}
-          </tr>
-        </tbody>
-      </table>
-    </div>
+            <!-- Decision maker aggregate matrix -->
+            <div class="mt-4">
+                <h2>Decision Maker Aggregate Matrix</h2>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped">
+                        <thead class="table-primary">
+                            <tr>
+                                <th>Criteria</th>
+                                {% for i in range(6) %}
+                                <th>{{ name_criterias[i] }}</th>
+                                {% endfor %}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Value</td>
+                                {% for i in range(6) %}
+                                <td>{{ aggregated_criteria[i] }}</td>
+                                {% endfor %}
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
 
-    <!-- weight normalization matrix -->
-    <div class="mt-4">
-      <h2>Weight Normalization Matrix</h2>
-      <table class="table table-bordered">
-        <thead>
-          <tr>
-            <th>Alternatives</th>
-            {% for i in range(6) %}
-            <th>{{ name_criterias[i] }}</th>
-            {% endfor %}
-          </tr>
-        </thead>
-        <tbody>
-          {% for i in range(12) %}
-          <tr>
-            <td>{{ name_alternatives[i] }}</td>
-            {% for j in range(6) %}
-            <td>{{ weighted_normalized_matriks[i][j] }}</td>
-            {% endfor %}
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    </div>
+            <!-- Weight normalization matrix -->
+            <div class="mt-4">
+                <h2>Weight Normalization Matrix</h2>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped">
+                        <thead class="table-primary">
+                            <tr>
+                                <th>Alternatives</th>
+                                {% for i in range(6) %}
+                                <th>{{ name_criterias[i] }}</th>
+                                {% endfor %}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for i in range(12) %}
+                            <tr>
+                                <td>{{ name_alternatives[i] }}</td>
+                                {% for j in range(6) %}
+                                <td>{{ weighted_normalized_matriks[i][j] }}</td>
+                                {% endfor %}
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
 
-    <!-- FPIS matrix -->
-    <div class="mt-4">
-      <h2>FPIS and FNIS Matrix</h2>
-      <table class="table table-bordered">
-        <thead>
-          <tr>
-            <th>Criteria</th>
-            {% for i in range(6) %}
-            <th>{{ name_criterias[i] }}</th>
-            {% endfor %}
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>FPIS</td>
-            {% for j in range(6) %}
-            <td>{{ fpis[j] }}</td>
-            {% endfor %}
-          </tr>
-          <tr>
-            <td>FNIS</td>
-            {% for j in range(6) %}
-            <td>{{ fnis[j] }}</td>
-            {% endfor %}
-          </tr>
-        </tbody>
-      </table>
-    </div>
+            <!-- FPIS and FNIS matrix -->
+            <div class="mt-4">
+                <h2>FPIS and FNIS Matrix</h2>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped">
+                        <thead class="table-primary">
+                            <tr>
+                                <th>Criteria</th>
+                                {% for i in range(6) %}
+                                <th>{{ name_criterias[i] }}</th>
+                                {% endfor %}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>FPIS</td>
+                                {% for j in range(6) %}
+                                <td>{{ fpis[j] }}</td>
+                                {% endfor %}
+                            </tr>
+                            <tr>
+                                <td>FNIS</td>
+                                {% for j in range(6) %}
+                                <td>{{ fnis[j] }}</td>
+                                {% endfor %}
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
 
-    <!-- FPIS distance matrix -->
-    <div class="mt-4">
-      <h2>FPIS Distance Matrix</h2>
-      <table class="table table-bordered">
-        <thead>
-          <tr>
-            <th>Alternatives</th>
-            {% for i in range(6) %}
-            <th>{{ name_criterias[i] }}</th>
-            {% endfor %}
-          </tr>
-        </thead>
-        <tbody>
-          {% for i in range(12) %}
-          <tr>
-            <td>{{ name_alternatives[i] }}</td>
-            {% for j in range(6) %}
-            <td>{{ distance_fpis[i][j] | round(6) }}</td>
-            {% endfor %}
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    </div>
+            <!-- FPIS distance matrix -->
+            <div class="mt-4">
+                <h2>FPIS Distance Matrix</h2>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped">
+                        <thead class="table-primary">
+                            <tr>
+                                <th>Alternatives</th>
+                                {% for i in range(6) %}
+                                <th>{{ name_criterias[i] }}</th>
+                                {% endfor %}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for i in range(12) %}
+                            <tr>
+                                <td>{{ name_alternatives[i] }}</td>
+                                {% for j in range(6) %}
+                                <td>{{ distance_fpis[i][j] | round(6) }}</td>
+                                {% endfor %}
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
 
-    <!-- FNIS distance matrix -->
-    <div class="mt-4">
-      <h2>FNIS Distance Matrix</h2>
-      <table class="table table-bordered">
-        <thead>
-          <tr>
-            <th>Alternatives</th>
-            {% for i in range(6) %}
-            <th>{{ name_criterias[i] }}</th>
-            {% endfor %}
-          </tr>
-        </thead>
-        <tbody>
-          {% for i in range(12) %}
-          <tr>
-            <td>{{ name_alternatives[i] }}</td>
-            {% for j in range(6) %}
-            <td>{{ distance_fnis[i][j] | round(6)}}</td>
-            {% endfor %}
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    </div>
+            <!-- FNIS distance matrix -->
+            <div class="mt-4">
+                <h2>FNIS Distance Matrix</h2>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped">
+                        <thead class="table-primary">
+                            <tr>
+                                <th>Alternatives</th>
+                                {% for i in range(6) %}
+                                <th>{{ name_criterias[i] }}</th>
+                                {% endfor %}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for i in range(12) %}
+                            <tr>
+                                <td>{{ name_alternatives[i] }}</td>
+                                {% for j in range(6) %}
+                                <td>{{ distance_fnis[i][j] | round(6) }}</td>
+                                {% endfor %}
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
 
-    <!-- ranked alternatives -->
-    <div class="mt-4">
-      <h2>Ranked Alternatives</h2>
-      <table class="table table-bordered">
-        <thead>
-          <tr>
-            <th>Rank</th>
-            <th>Alternative</th>
-            <th>Distance</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for i in range(12) %}
-          <tr>
-            <td>{{ i + 1 }}</td>
-            <td>{{ name_alternatives[sorted_alternatives[i]] }}</td>
-            <td>{{ closest_distances[sorted_alternatives[i]] | round(6)}}</td> <!-- Corrected line -->
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    </div>
-    
-    <div class="mt-4">
-      <a href="{{ url_for('home') }}" class="btn btn-primary">Go Back to Home</a>
-    </div>
+            <!-- Ranked alternatives -->
+            <div class="mt-4">
+                <h2>Ranked Alternatives</h2>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped">
+                        <thead class="table-primary">
+                            <tr>
+                                <th>Rank</th>
+                                <th>Alternative</th>
+                                <th>Distance</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for i in range(12) %}
+                            <tr>
+                                <td>{{ i + 1 }}</td>
+                                <td>
+                                    {{ name_alternatives[sorted_alternatives[i]]
+                                    }}
+                                </td>
+                                <td>
+                                    {{ closest_distances[sorted_alternatives[i]]
+                                    | round(6) }}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
 
-  </div>
+            <div class="mt-4">
+                <a href="{{ url_for('home') }}" class="btn btn-primary"
+                    >Go Back to Home</a
+                >
+            </div>
+        </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-</body>
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+            crossorigin="anonymous"
+        ></script>
+    </body>
 </html>

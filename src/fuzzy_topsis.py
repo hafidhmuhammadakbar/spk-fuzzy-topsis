@@ -155,7 +155,7 @@ def get_closest_distance(distance_fpis, distance_fnis):
 if __name__ == "__main__":
     matrix = load_variable()
     matrix_info = variable_info()
-    print('matriks original: ', matrix)
+    # print('matriks original: ', matrix)
 
     normalized_matrix = get_normalize(matrix)
     print('\nmatriks normalized: ', normalized_matrix)
