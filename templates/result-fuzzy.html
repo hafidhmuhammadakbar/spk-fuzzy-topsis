@@ -11,7 +11,7 @@
     </head>
     <body class="bg-light">
         <div class="container mt-5">
-            <h1 class="text-center text-primary mb-5">Result!</h1>
+            <h1 class="text-center text-primary mb-5">Fuzzy TOPSIS Result</h1>
 
             <!-- Initial matrix -->
             <div class="mt-4">
@@ -20,9 +20,9 @@
                     <table class="table table-bordered table-striped">
                         <thead class="table-primary">
                             <tr>
-                                <th>Alternatives</th>
+                                <th class="text-center">Alternatives</th>
                                 {% for i in range(6) %}
-                                <th>{{ name_criterias[i] }}</th>
+                                <th class="text-center">{{ name_criterias[i] }}</th>
                                 {% endfor %}
                             </tr>
                         </thead>
@@ -31,7 +31,7 @@
                             <tr>
                                 <td>{{ name_alternatives[i] }}</td>
                                 {% for j in range(6) %}
-                                <td>{{ initial_matrix[i][j] }}</td>
+                                <td class="text-center">{{ initial_matrix[i][j] }}</td>
                                 {% endfor %}
                             </tr>
                             {% endfor %}
@@ -47,9 +47,9 @@
                     <table class="table table-bordered table-striped">
                         <thead class="table-primary">
                             <tr>
-                                <th>Alternatives</th>
+                                <th class="text-center">Alternatives</th>
                                 {% for i in range(6) %}
-                                <th>{{ name_criterias[i] }}</th>
+                                <th class="text-center">{{ name_criterias[i] }}</th>
                                 {% endfor %}
                             </tr>
                         </thead>
@@ -58,7 +58,7 @@
                             <tr>
                                 <td>{{ name_alternatives[i] }}</td>
                                 {% for j in range(6) %}
-                                <td>
+                                <td class="text-center">
                                     {{ normalized_matrix[i][j] | round(6) }}
                                 </td>
                                 {% endfor %}
@@ -76,20 +76,29 @@
                     <table class="table table-bordered table-striped">
                         <thead class="table-primary">
                             <tr>
-                                <th>Decision Maker</th>
+                                <th rowspan="2" class="text-center" style="vertical-align: middle;">Decision Maker</th>
                                 {% for i in range(6) %}
-                                <th>{{ name_criterias[i] }}</th>
+                                    <th colspan="3" class="text-center">{{ name_criterias[i] }}</th>
+                                {% endfor %}
+                            </tr>
+                            <tr>
+                                {% for i in range(6) %}
+                                    <th class="text-center">Low</th>
+                                    <th class="text-center">Medium</th>
+                                    <th class="text-center">High</th>
                                 {% endfor %}
                             </tr>
                         </thead>
                         <tbody>
                             {% for i in range(num_dm) %}
-                            <tr>
-                                <td>Decision Maker {{ i + 1 }}</td>
-                                {% for j in range(6) %}
-                                <td>{{ dm_initial_criteria[i][j] }}</td>
-                                {% endfor %}
-                            </tr>
+                                <tr>
+                                    <td>Decision Maker {{ i + 1 }}</td>
+                                    {% for j in range(6) %}
+                                        {% for k in range(3) %}
+                                            <td class="text-center">{{ dm_initial_criteria[i][j][k] }}</td>
+                                        {% endfor %}
+                                    {% endfor %}
+                                </tr>
                             {% endfor %}
                         </tbody>
                     </table>
@@ -103,9 +112,16 @@
                     <table class="table table-bordered table-striped">
                         <thead class="table-primary">
                             <tr>
-                                <th>Criteria</th>
+                                <th rowspan="2" class="text-center" style="vertical-align: middle;">Criteria</th>
                                 {% for i in range(6) %}
-                                <th>{{ name_criterias[i] }}</th>
+                                    <th colspan="3" class="text-center">{{ name_criterias[i] }}</th>
+                                {% endfor %}
+                            </tr>
+                            <tr>
+                                {% for i in range(6) %}
+                                    <th class="text-center">Low</th>
+                                    <th class="text-center">Medium</th>
+                                    <th class="text-center">High</th>
                                 {% endfor %}
                             </tr>
                         </thead>
@@ -113,7 +129,9 @@
                             <tr>
                                 <td>Value</td>
                                 {% for i in range(6) %}
-                                <td>{{ aggregated_criteria[i] }}</td>
+                                    {% for j in range(3) %}
+                                        <td class="text-center">{{ aggregated_criteria[i][j] }}</td>
+                                    {% endfor %}
                                 {% endfor %}
                             </tr>
                         </tbody>
@@ -128,9 +146,16 @@
                     <table class="table table-bordered table-striped">
                         <thead class="table-primary">
                             <tr>
-                                <th>Alternatives</th>
+                                <th rowspan="2" class="text-center" style="vertical-align: middle;">Alternatives</th>
                                 {% for i in range(6) %}
-                                <th>{{ name_criterias[i] }}</th>
+                                    <th colspan="3" class="text-center" style="vertical-align: middle;">{{ name_criterias[i] }}</th>
+                                {% endfor %}
+                            </tr>
+                            <tr>
+                                {% for i in range(6) %}
+                                    <th class="text-center">Low</th>
+                                    <th class="text-center">Medium</th>
+                                    <th class="text-center">High</th>
                                 {% endfor %}
                             </tr>
                         </thead>
@@ -139,7 +164,9 @@
                             <tr>
                                 <td>{{ name_alternatives[i] }}</td>
                                 {% for j in range(6) %}
-                                <td>{{ weighted_normalized_matriks[i][j] }}</td>
+                                    {% for k in range(3) %}
+                                        <td class="text-center" style="vertical-align: middle;">{{ weighted_normalized_matriks[i][j][k] | round(3) }}</td>
+                                    {% endfor %}
                                 {% endfor %}
                             </tr>
                             {% endfor %}
@@ -155,23 +182,34 @@
                     <table class="table table-bordered table-striped">
                         <thead class="table-primary">
                             <tr>
-                                <th>Criteria</th>
+                                <th rowspan="2" class="text-center" style="vertical-align: middle;">Criteria</th>
                                 {% for i in range(6) %}
-                                <th>{{ name_criterias[i] }}</th>
+                                    <th colspan="3" class="text-center" style="vertical-align: middle;">{{ name_criterias[i] }}</th>
+                                {% endfor %}
+                            </tr>
+                            <tr>
+                                {% for i in range(6) %}
+                                    <th class="text-center">Low</th>
+                                    <th class="text-center">Medium</th>
+                                    <th class="text-center">High</th>
                                 {% endfor %}
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td>FPIS</td>
+                                <td class="text-center">FPIS</td>
                                 {% for j in range(6) %}
-                                <td>{{ fpis[j] }}</td>
+                                    {% for k in range(3) %}
+                                        <td class="text-center" style="vertical-align: middle;">{{ fpis[j][k] | round(3) }}</td>
+                                    {% endfor %}
                                 {% endfor %}
                             </tr>
                             <tr>
-                                <td>FNIS</td>
+                                <td class="text-center">FNIS</td>
                                 {% for j in range(6) %}
-                                <td>{{ fnis[j] }}</td>
+                                    {% for k in range(3) %}
+                                        <td class="text-center" style="vertical-align: middle;">{{ fnis[j][k] | round(3) }}</td>
+                                    {% endfor %}
                                 {% endfor %}
                             </tr>
                         </tbody>
@@ -186,7 +224,7 @@
                     <table class="table table-bordered table-striped">
                         <thead class="table-primary">
                             <tr>
-                                <th>Alternatives</th>
+                                <th class="text-center" style="vertical-align: middle;">Alternatives</th>
                                 {% for i in range(6) %}
                                 <th>{{ name_criterias[i] }}</th>
                                 {% endfor %}
@@ -197,7 +235,7 @@
                             <tr>
                                 <td>{{ name_alternatives[i] }}</td>
                                 {% for j in range(6) %}
-                                <td>{{ distance_fpis[i][j] | round(6) }}</td>
+                                <td class="text-center" style="vertical-align: middle;">{{ distance_fpis[i][j] | round(6) }}</td>
                                 {% endfor %}
                             </tr>
                             {% endfor %}
@@ -213,9 +251,9 @@
                     <table class="table table-bordered table-striped">
                         <thead class="table-primary">
                             <tr>
-                                <th>Alternatives</th>
+                                <th class="text-center" style="vertical-align: middle;">Alternatives</th>
                                 {% for i in range(6) %}
-                                <th>{{ name_criterias[i] }}</th>
+                                <th class="text-center" style="vertical-align: middle;">{{ name_criterias[i] }}</th>
                                 {% endfor %}
                             </tr>
                         </thead>
@@ -224,7 +262,7 @@
                             <tr>
                                 <td>{{ name_alternatives[i] }}</td>
                                 {% for j in range(6) %}
-                                <td>{{ distance_fnis[i][j] | round(6) }}</td>
+                                <td class="text-center" style="vertical-align: middle;">{{ distance_fnis[i][j] | round(6) }}</td>
                                 {% endfor %}
                             </tr>
                             {% endfor %}
@@ -240,9 +278,9 @@
                     <table class="table table-bordered table-striped">
                         <thead class="table-primary">
                             <tr>
-                                <th>Rank</th>
-                                <th>Alternative</th>
-                                <th>Distance</th>
+                                <th class="text-center" style="vertical-align: middle;">Rank</th>
+                                <th class="text-center" style="vertical-align: middle;">Alternative</th>
+                                <th class="text-center" style="vertical-align: middle;">Distance</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -253,7 +291,7 @@
                                     {{ name_alternatives[sorted_alternatives[i]]
                                     }}
                                 </td>
-                                <td>
+                                <td class="text-center" style="vertical-align: middle;">
                                     {{ closest_distances[sorted_alternatives[i]]
                                     | round(6) }}
                                 </td>
@@ -264,10 +302,10 @@
                 </div>
             </div>
 
-            <div class="mt-4">
-                <a href="{{ url_for('home') }}" class="btn btn-primary"
-                    >Go Back to Home</a
-                >
+            <div class="mt-4 mb-4 text-center">
+                <a href="{{ url_for('home') }}" class="btn btn-primary">
+                    Go Back to Home
+                </a>
             </div>
         </div>
 
