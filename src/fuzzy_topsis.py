@@ -17,21 +17,21 @@ def load_variable():
     return matriks
 
 def name_alternatives():
-    return ['Dekat UNS dan ISI (Kec. Jebres)',
-            'Dekat rumah sakit Moewardi (Kec. Jebres),',
-            'Dekat Pasar Gede (Kec. Jebres)',
-            'Dekat Stasiun Balapan dan Masjid Sheikh (Kec. Banjarsari, Kec. Jebres)',
-            'Dekat Stadion Manahan (Kec. Banjarsari)',
-            'Dekat Pasar Legi (Kec. Banjarsari)',
-            'Dekat Pasar Klewer, Keraton Surakarta, Alun-alun (Kec. Pasar Kliwon)',
-            'Dekat Pasar Notoharjo (Kec. Pasar Kliwon)',
-            'Dekat Solo Grand Mall (Kec. Laweyan)',
-            'Dekat Solo Square Mall (Kec. Laweyan)',
-            'Di Jl. Veteran (Kec. Serengan)',
-            'Di Jl. Radjiman (Kec. Laweyan, Kec. Serengan)']
+    return ['Near UNS & ISI (Jebres)',
+            'Near Moewardi Hospital (Jebres),',
+            'Near Gede Market (Jebres)',
+            'Near Balapan Station & Sheikh Zayed Mosque (Banjarsari, Jebres)',
+            'Near Manahan Stadium (Banjarsari)',
+            'Near Legi Market (Banjarsari)',
+            'Near Klewer Market, Keraton Surakarta, & Alun-alun (Pasar Kliwon)',
+            'Near Notoharjo Market (Pasar Kliwon)',
+            'Near Solo Grand Mall (Laweyan)',
+            'Near Solo Square Mall (Laweyan)',
+            'In Jl. Veteran (Serengan)',
+            'In Jl. Radjiman (Laweyan, Serengan)']
 
 def name_criteria():
-    return ['Harga Sewa Bangunan', 'Aksesibilitas', 'Keramaian Lokasi', 'Keamanan', 'Jumlah Kompetitor', 'Budget']
+    return ['Building Rental Price', 'Accessibility', 'Location Crowd', 'Safety', 'Number of Competitors', 'Budget']
 
 # Define the variable information
 def variable_info():
